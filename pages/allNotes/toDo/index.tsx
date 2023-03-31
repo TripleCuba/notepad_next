@@ -1,10 +1,10 @@
-import { getAllListData } from "@/apiCalls/apiCall";
-import React, { useEffect, useState } from "react";
+import { getAllLists } from "@/utils/apiCalls/toDoCalls";
+import { useEffect, useState } from "react";
 
 const Index = () => {
   const [allLists, setAllLists] = useState([]);
   const getData = async () => {
-    const resp = await getAllListData();
+    const resp = await getAllLists();
     console.log(resp);
     setAllLists(resp);
   };

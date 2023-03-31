@@ -16,8 +16,11 @@ const NavBar = () => {
           <button>All notes</button>
         </Link>
       </div>
-      <Link href="/SignUp">
+      <Link href="/auth/sign_up">
         <button>Sign Up</button>
+      </Link>
+      <Link href="/auth/log_in">
+        <button>LogIn</button>
       </Link>
     </nav>
   );

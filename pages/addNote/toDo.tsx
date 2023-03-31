@@ -1,4 +1,4 @@
-import { createList } from "@/apiCalls/apiCall";
+import { createList } from "@/utils/apiCalls/toDoCalls";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
@@ -6,9 +6,10 @@ const ToDo = () => {
   const [listTitle, setListTitle] = useState("");
   const router = useRouter();
   const handleSubmitList = async () => {
-    const resp: { title: String; toDo: []; _id: String } = await createList({
-      title: listTitle,
-    });
+    const data = { title: listTitle };
+    const resp: { title: String; toDo: []; _id: String } = await createList(
+      data
+    );
     resp && router.push(`/allNotes/toDo/${resp._id}`);
   };
   return (

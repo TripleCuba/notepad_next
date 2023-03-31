@@ -4,39 +4,77 @@
   border-radius: 10px;
   width: 100%;
 }
+
 .element {
   display: flex;
-  gap: 1rem;
   width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.innerElement {
+  position: relative;
+}
+.editDelete {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+  button {
+    margin: auto;
+    width: 50%;
+  }
 }
 
 .content {
-  width: 90%;
+  width: 100%;
   text-align: center;
 }
 .pressed {
-  text-decoration: line-through rgb(96, 53, 53) 3px;
+  text-decoration: line-through rgb(96, 53, 53) 2px;
 }
 
 .checkBox {
+  position: absolute;
   width: 10%;
-  height: auto;
-  border-radius: 10px;
-  align-self: stretch;
-  border: 1px;
-  .innerCheck {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  .innerBox {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 2em;
+    height: 2em;
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .mark {
+      background: #000;
+      border-radius: 10px;
+      width: 75%;
+      height: 75%;
+    }
+  }
+  .innerBox:hover {
+    background: #b3b1b137;
   }
 }
 
 .edit {
   display: flex;
   flex-direction: column;
+  height: 100px;
+
+  .input {
+    width: 75%;
+    margin: auto;
+    text-align: center;
+    flex-grow: 1;
+    border: none;
+  }
   .buttons {
     width: 100%;
+    margin-bottom: 10px;
+
     .save {
       width: 50%;
     }

@@ -1,9 +1,9 @@
-import { getListData } from "@/apiCalls/apiCall";
 import ListElement from "@/components/body/toDo/ListElement";
 import NewElement from "@/components/body/toDo/NewElement";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import toDoList from "styles/allNotes/toDo/toDoList.module.scss";
+import { getList } from "@/utils/apiCalls/toDoCalls";
 
 type List = {
   _id: string;
@@ -20,7 +20,7 @@ const ToDo = () => {
   const [initialRender, setInitialRender] = useState(false);
 
   const getData = async (id: string) => {
-    const resp = await getListData(id);
+    const resp = await getList(id);
     console.log(resp);
     setListTitle(resp.title);
     setListArray(resp.toDo);
@@ -49,6 +49,7 @@ const ToDo = () => {
                   listArray={listArray}
                   setListArray={setListArray}
                   index={index}
+                  setInitialRender={setInitialRender}
                 />
               ))
             ) : (

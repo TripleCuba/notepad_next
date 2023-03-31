@@ -1,5 +1,7 @@
-import { createListElement } from "@/apiCalls/apiCall";
 import React, { useState } from "react";
+import addToDo from "@/styles/allNotes/toDo/addToDo.module.scss";
+import { emptyDataValidation } from "@/utils/validation/dataValidation";
+import { createElement } from "@/utils/apiCalls/toDoCalls";
 
 const NewElement = ({
   id,
@@ -14,17 +16,26 @@ const NewElement = ({
     newFormData.content = e.target.value;
     setFormData(newFormData);
   };
+
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
-    const resp = await createListElement(formData);
-    resp ? setInitialRender(false) : console.log(resp);
+    let isValid = emptyDataValidation(formData);
+    if (isValid) {
+      const resp = await createElement(formData, formData._id);
+      resp ? setInitialRender(false) : console.log(resp);
+    } else {
+      alert("data is not valid");
+    }
   };
   return (
     <div>
-      <form>
-        <label>Add new element</label>
-        <input value={formData.content} onChange={(e) => handleChange(e)} />
-        <button onClick={(e) => handleSubmit(e)}>Add</button>
+      <form className={addToDo.form} onSubmit={(e) => handleSubmit(e)}>
+        <input
+          value={formData.content}
+          onChange={(e) => handleChange(e)}
+          placeholder="add new to-do"
+        />
+        <input type="submit" value="Add" className={addToDo.add} />
       </form>
     </div>
   );

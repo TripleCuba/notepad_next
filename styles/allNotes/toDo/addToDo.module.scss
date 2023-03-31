@@ -1,0 +1,16 @@
+.form {
+  display: flex;
+  width: 75%;
+  margin: 0 auto;
+  input {
+    width: 90%;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+  .add {
+    width: 10%;
+    height: 3.5em;
+    cursor: pointer;
+  }
+}

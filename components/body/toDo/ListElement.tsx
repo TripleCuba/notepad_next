@@ -4,6 +4,7 @@ import toDoListElement from "@/styles/allNotes/toDo/toDoListElement.module.scss"
 import ListContent from "./ListContent";
 import EditElement from "./EditElement";
 import CheckBox from "./CheckBox";
+import EditDeleteButtons from "./EditDeleteButtons";
 export type ListElementType = { _id: string; content: string; isDone: boolean };
 
 const ListElement = ({
@@ -11,11 +12,13 @@ const ListElement = ({
   index,
   listArray,
   setListArray,
+  setInitialRender,
 }: {
   item: ListElementType;
   index: number;
   listArray: ListArray;
   setListArray: (value: React.SetStateAction<ListArray>) => void;
+  setInitialRender: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [isEditable, setIsEditable] = useState(false);
   const [editItem, setEditItem] = useState<ListElementType>();
@@ -33,17 +36,25 @@ const ListElement = ({
           item={editItem}
           isEditable={isEditable}
           setIsEditable={setIsEditable}
+          setInitialRender={setInitialRender}
         />
       ) : (
         <div className={toDoListElement.element}>
-          <CheckBox
-            key={index}
+          <div className={toDoListElement.innerElement}>
+            <CheckBox
+              key={index}
+              item={item}
+              listArray={listArray}
+              setListArray={setListArray}
+              index={index}
+            />
+            <ListContent item={item} />
+          </div>
+          <EditDeleteButtons
             item={item}
-            listArray={listArray}
-            setListArray={setListArray}
-            index={index}
+            handleEditTrigger={handleEditTrigger}
+            setInitialRender={setInitialRender}
           />
-          <ListContent item={item} />{" "}
         </div>
       )}
     </li>

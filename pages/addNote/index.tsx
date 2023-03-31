@@ -1,4 +1,4 @@
-import { getAllNotes, postNote } from "@/apiCalls/apiCall";
+import { getAllNotes, postNote } from "@/utils/apiCalls/apiCall";
 import React, { useEffect, useState } from "react";
 
 // export default function index()

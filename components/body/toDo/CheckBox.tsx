@@ -1,8 +1,8 @@
 import React from "react";
-import { BiCheckboxSquare, BiCheckbox } from "react-icons/bi";
 import toDoListElement from "@/styles/allNotes/toDo/toDoListElement.module.scss";
 import { ListArray } from "@/pages/allNotes/toDo/[id]";
 import { ListElementType } from "./ListElement";
+import { editElement } from "@/utils/apiCalls/toDoCalls";
 const CheckBox = ({
   index,
   listArray,
@@ -14,15 +14,15 @@ const CheckBox = ({
   listArray: ListArray;
   setListArray: (value: React.SetStateAction<ListArray>) => void;
 }) => {
-  const handleCheckBox = (id: number) => {
+  const handleCheckBox = async (id: number) => {
     let newList: ListArray = [...listArray];
-
-    if (newList[id].isDone) {
-      newList[id].isDone = false;
+    let newListItem = newList[id];
+    if (newListItem.isDone) {
+      newListItem.isDone = false;
     } else {
-      newList[id].isDone = true;
+      newListItem.isDone = true;
     }
-    console.log(newList);
+    const resp = await editElement(newListItem, newListItem._id);
     setListArray(newList);
   };
   return (
@@ -30,11 +30,9 @@ const CheckBox = ({
       className={toDoListElement.checkBox}
       onClick={() => handleCheckBox(index)}
     >
-      {item.isDone ? (
-        <BiCheckboxSquare className={toDoListElement.innerCheck} />
-      ) : (
-        <BiCheckbox className={toDoListElement.innerCheck} />
-      )}
+      <div className={toDoListElement.innerBox}>
+        {item.isDone ? <div className={toDoListElement.mark}></div> : ""}
+      </div>
     </div>
   );
 };
