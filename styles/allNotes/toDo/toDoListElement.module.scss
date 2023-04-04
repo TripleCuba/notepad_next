@@ -1,6 +1,6 @@
 .main {
   margin: 2rem auto;
-  border: 1px solid black;
+  background: #a2b9ee;
   border-radius: 10px;
   width: 100%;
 }
@@ -19,6 +19,7 @@
   width: 100%;
   margin-bottom: 10px;
   button {
+    border: none;
     margin: auto;
     width: 50%;
   }

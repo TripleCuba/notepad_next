@@ -1,27 +1,27 @@
-import Link from "next/link";
-import React, { useState } from "react";
+import { logOut } from "@/utils/apiCalls/authApiCalls";
+import { useRouter } from "next/router";
+import AuthNav from "./AuthNav";
+import GuestNav from "./GuestNav";
+import { useUser } from "../GlobalContext";
 
 const NavBar = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const guestUser = { isAuthenticated: false, username: {} };
+  const { user, setUser } = useUser();
+  const router = useRouter();
+  const deleteCookie = async () => {
+    let resp = await logOut();
+    if (resp.success) {
+      setUser(guestUser);
+      router.push("/auth/log_in");
+    }
+  };
   return (
     <nav>
-      <div>
-        <Link href="/home">
-          <button>Home</button>
-        </Link>
-        <Link href="/addNote">
-          <button>Add note</button>
-        </Link>
-        <Link href="/allNotes">
-          <button>All notes</button>
-        </Link>
-      </div>
-      <Link href="/auth/sign_up">
-        <button>Sign Up</button>
-      </Link>
-      <Link href="/auth/log_in">
-        <button>LogIn</button>
-      </Link>
+      {user.isAuthenticated ? (
+        <AuthNav username={user.username} deleteCookie={deleteCookie} />
+      ) : (
+        <GuestNav />
+      )}
     </nav>
   );
 };

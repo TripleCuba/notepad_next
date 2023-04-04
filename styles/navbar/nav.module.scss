@@ -1,0 +1,27 @@
+// #9a9cea
+// #a2b9ee
+// #a2dcee
+// #adeee2
+
+.main {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 2.5em;
+
+  button {
+    border: none;
+    height: 2.5em;
+  }
+}
+
+.routes,
+.profile {
+  display: flex;
+  button:hover {
+    color: white;
+    text-decoration: underline;
+    transition: 1s;
+  }
+}
