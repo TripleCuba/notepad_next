@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { ListArray } from "@/pages/allNotes/toDo/[id]";
-import toDoListElement from "@/styles/allNotes/toDo/toDoListElement.module.scss";
+import element from "@/styles/allNotes/toDo/element.module.scss";
 import ListContent from "./ListContent";
 import EditElement from "./EditElement";
-import CheckBox from "./CheckBox";
 import EditDeleteButtons from "./EditDeleteButtons";
 export type ListElementType = { _id: string; content: string; isDone: boolean };
 
@@ -27,10 +26,7 @@ const ListElement = ({
     setEditItem(itemToEdit);
   };
   return (
-    <li
-      className={toDoListElement.main}
-      onDoubleClick={() => handleEditTrigger(item)}
-    >
+    <li onDoubleClick={() => handleEditTrigger(item)}>
       {isEditable ? (
         <EditElement
           item={editItem}
@@ -39,17 +35,14 @@ const ListElement = ({
           setInitialRender={setInitialRender}
         />
       ) : (
-        <div className={toDoListElement.element}>
-          <div className={toDoListElement.innerElement}>
-            <CheckBox
-              key={index}
-              item={item}
-              listArray={listArray}
-              setListArray={setListArray}
-              index={index}
-            />
-            <ListContent item={item} />
-          </div>
+        <div className={element.item}>
+          <ListContent
+            item={item}
+            index={index}
+            listArray={listArray}
+            setListArray={setListArray}
+            setInitialRender={setInitialRender}
+          />
           <EditDeleteButtons
             item={item}
             handleEditTrigger={handleEditTrigger}

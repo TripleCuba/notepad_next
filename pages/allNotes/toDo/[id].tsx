@@ -2,8 +2,8 @@ import ListElement from "@/components/body/toDo/ListElement";
 import NewElement from "@/components/body/toDo/NewElement";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import toDoList from "styles/allNotes/toDo/toDoList.module.scss";
 import { getList } from "@/utils/apiCalls/toDoCalls";
+import element from "@/styles/allNotes/toDo/element.module.scss";
 
 type List = {
   _id: string;
@@ -34,13 +34,13 @@ const ToDo = () => {
     }
   }, [router.isReady, router.query.id, initialRender, listArray]);
   return (
-    <div className={toDoList.main}>
+    <div className={element.main}>
       {initialRender === false ? (
         <h1>Loading</h1>
       ) : (
         <div>
-          <h1>{listTitle}</h1>
-          <ul>
+          <h1 className={element.title}>{listTitle}</h1>
+          <ul className={element.list}>
             {listArray.length ? (
               listArray.map((item, index) => (
                 <ListElement

@@ -1,4 +1,5 @@
 import React from "react";
+import auth from "@/styles/auth/auth.module.scss";
 
 const LogInForm = ({
   handleChange,
@@ -10,7 +11,7 @@ const LogInForm = ({
   formData: { username: string; password: string };
 }) => {
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form className={auth.form} onSubmit={(e) => handleSubmit(e)}>
       <input
         type="text"
         placeholder="Username"
@@ -25,7 +26,7 @@ const LogInForm = ({
         value={formData.password}
         onChange={(e) => handleChange(e)}
       />
-      <input type="submit" value="Login" />
+      <input type="submit" value="Login" className={auth.submit} />
     </form>
   );
 };

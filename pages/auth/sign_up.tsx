@@ -1,3 +1,5 @@
+import SignUpForm from "@/components/auth/SignUpForm";
+import auth from "@/styles/auth/auth.module.scss";
 import { createUser } from "@/utils/apiCalls/authApiCalls";
 import {
   emailValidation,
@@ -59,40 +61,14 @@ const SignUp = () => {
     setError("");
   }, 10000);
   return (
-    <div>
+    <div className={auth.main}>
       <h1>Sign Up!</h1>
-      {error && <h3>{error}</h3>}
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input
-          type="text"
-          placeholder="Username"
-          name="username"
-          value={formData.username}
-          onChange={(e) => handleChange(e)}
-        />
-        <input
-          type="text"
-          placeholder="Email"
-          name="email"
-          value={formData.email}
-          onChange={(e) => handleChange(e)}
-        />
-        <input
-          type="text"
-          placeholder="Password"
-          name="password1"
-          value={formData.password1}
-          onChange={(e) => handleChange(e)}
-        />
-        <input
-          type="text"
-          placeholder="Confirm Password"
-          name="password2"
-          value={formData.password2}
-          onChange={(e) => handleChange(e)}
-        />
-        <input type="submit" value="Create" />
-      </form>
+      {error && <h3 className={auth.error}>{error}</h3>}
+      <SignUpForm
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        formData={formData}
+      />
     </div>
   );
 };

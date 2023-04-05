@@ -1,0 +1,94 @@
+.main {
+  .title {
+    text-align: center;
+  }
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto;
+  background: #00000027;
+  border-radius: 5px;
+  width: 75%;
+}
+.list {
+  padding: 0;
+  list-style: none;
+}
+.item {
+  width: 95%;
+  justify-content: center;
+  margin: 1px auto;
+  display: flex;
+  border-bottom: 1px solid white;
+}
+
+.editDelete {
+  .iconButton {
+    width: 50%;
+    height: 100%;
+    border: none;
+    border-radius: 5px;
+    .icon {
+      color: black;
+      font-size: 1.5em;
+    }
+  }
+  .iconButton:hover {
+    background: #9a9cea;
+    .icon {
+      color: white;
+    }
+    transition: 0.5s;
+  }
+
+  justify-content: space-around;
+  display: flex;
+  align-items: center;
+  width: 20%;
+}
+
+.content {
+  display: flex;
+  width: 80%;
+
+  input[type="checkbox"] {
+    cursor: pointer;
+    position: absolute;
+    opacity: 0;
+  }
+}
+.pressed {
+  color: white;
+  text-decoration: black 1px line-through;
+}
+.label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.label::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  border: 0.05em solid black;
+  border-radius: 0.15em;
+  text-align: center;
+  margin: 0 1em;
+}
+.content.label:hover::before,
+.content input[type="checkbox"]:hover + label::before {
+  background-color: #aeb0eb;
+
+  transition: 0.2s;
+}
+.content input[type="checkbox"]:focus + label::before {
+  box-shadow: 0 0 20px #ffffff;
+}
+
+.content input[type="checkbox"]:checked + label::before {
+  content: "\002714";
+  background-color: #9a9cea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}

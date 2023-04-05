@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import toDoListElement from "@/styles/allNotes/toDo/toDoListElement.module.scss";
+import element from "@/styles/allNotes/toDo/element.module.scss";
 import { ListElementType } from "./ListElement";
 import { emptyDataValidation } from "@/utils/validation/dataValidation";
 import { editElement } from "@/utils/apiCalls/toDoCalls";
@@ -35,10 +35,10 @@ const EditElement = ({
     item && setFormData(item);
   }, [isEditable, setFormData, item]);
   return (
-    <form className={toDoListElement.edit} onSubmit={(e) => handleSubmit(e)}>
+    <form className={element.edit} onSubmit={(e) => handleSubmit(e)}>
       {formData ? (
         <input
-          className={toDoListElement.input}
+          className={element.input}
           type="text"
           value={formData.content}
           onChange={(e) => handleChange(e)}
@@ -48,12 +48,9 @@ const EditElement = ({
         <h2>error</h2>
       )}
 
-      <div className={toDoListElement.buttons}>
-        <input type="submit" value="Save" className={toDoListElement.save} />
-        <button
-          className={toDoListElement.cancel}
-          onClick={() => setIsEditable(false)}
-        >
+      <div className={element.buttons}>
+        <input type="submit" value="Save" className={element.save} />
+        <button className={element.cancel} onClick={() => setIsEditable(false)}>
           Cancel
         </button>
       </div>

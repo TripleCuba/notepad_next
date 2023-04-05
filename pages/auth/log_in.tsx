@@ -4,6 +4,7 @@ import { loginUser } from "@/utils/apiCalls/authApiCalls";
 import { emptyDataValidation } from "@/utils/validation/dataValidation";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import auth from "@/styles/auth/auth.module.scss";
 
 const LogIn = () => {
   const initialData = {
@@ -35,10 +36,14 @@ const LogIn = () => {
       setError("Empty fields found");
     }
   };
+
+  setTimeout(() => {
+    setError("");
+  }, 10000);
   return (
-    <div>
+    <div className={auth.main}>
       <h1>Log In</h1>
-      {error && <h2>{error}</h2>}
+      {error && <h2 className={auth.error}>{error}</h2>}
       <LogInForm
         handleChange={handleChange}
         handleSubmit={handleSubmit}

@@ -1,7 +1,8 @@
 import React from "react";
 import { ListElementType } from "./ListElement";
-import toDoListElement from "@/styles/allNotes/toDo/toDoListElement.module.scss";
+import element from "@/styles/allNotes/toDo/element.module.scss";
 import { deleteElement } from "@/utils/apiCalls/toDoCalls";
+import { MdEdit, MdDelete } from "react-icons/md";
 
 const EditDeleteButtons = ({
   item,
@@ -17,9 +18,19 @@ const EditDeleteButtons = ({
     setInitialRender(false);
   };
   return (
-    <div className={toDoListElement.editDelete}>
-      <button onClick={() => handleEditTrigger(item)}>Edit</button>
-      <button onClick={() => deleteListElement(item)}>Delete</button>
+    <div className={element.editDelete}>
+      <button
+        onClick={() => handleEditTrigger(item)}
+        className={element.iconButton}
+      >
+        <MdEdit className={element.icon} />
+      </button>
+      <button
+        onClick={() => deleteListElement(item)}
+        className={element.iconButton}
+      >
+        <MdDelete className={element.icon} />
+      </button>
     </div>
   );
 };
