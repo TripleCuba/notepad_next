@@ -6,19 +6,21 @@ import { MdEdit, MdDelete } from "react-icons/md";
 
 const EditDeleteButtons = ({
   item,
+  listId,
   handleEditTrigger,
   setInitialRender,
 }: {
   item: ListElementType;
+  listId: string;
   handleEditTrigger: (itemToEdit: ListElementType) => void;
   setInitialRender: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const deleteListElement = async (item: ListElementType) => {
-    const resp = await deleteElement(item._id);
+    const resp = await deleteElement(item._id, listId);
     setInitialRender(false);
   };
   return (
-    <div className={element.editDelete}>
+    <div className={element.buttonContainer}>
       <button
         onClick={() => handleEditTrigger(item)}
         className={element.iconButton}

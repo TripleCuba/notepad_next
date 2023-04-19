@@ -1,0 +1,90 @@
+@import "variables";
+.main {
+  display: flex;
+  flex-direction: column;
+  button,
+  .submit {
+    background-color: white;
+    border-radius: $borderRadius;
+  }
+  button:hover,
+  .submit:hover {
+    background: $primaryColor;
+    color: white;
+    transition: 0.5s;
+    border: 1px solid white;
+  }
+}
+.nav {
+  width: 75%;
+  justify-content: space-between;
+  display: flex;
+  margin: 2rem auto 0;
+  gap: 4px;
+  button {
+    flex-grow: 1;
+    padding: 1rem;
+  }
+}
+.container {
+  background: $bgColor;
+  width: 75%;
+  margin: 2px auto;
+  max-height: 40em;
+  display: flex;
+  flex-direction: column;
+  border-radius: $borderRadius;
+}
+.head {
+  margin-top: 3em;
+  text-align: center;
+  flex-grow: 1;
+}
+.form {
+  width: 75%;
+  flex-grow: 4;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  textarea {
+    resize: vertical;
+    min-height: $minTextAreaHeight;
+    max-height: $maxTextAreaHeight;
+    border: none;
+    border-radius: $borderRadius;
+    padding: 1rem 1rem 0;
+  }
+  input {
+    border: none;
+    border-radius: $borderRadius;
+    padding: 0 1rem;
+  }
+}
+
+.submit {
+  width: 50%;
+  margin: 1em auto;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  select {
+    text-align: center;
+    border: none;
+    border-radius: $borderRadius;
+    margin-bottom: 0.5rem;
+  }
+}
+.newCategory {
+  width: 100%;
+  display: flex;
+  gap: 2px;
+  input {
+    flex-grow: 5;
+  }
+  button {
+    flex-grow: 1;
+  }
+}

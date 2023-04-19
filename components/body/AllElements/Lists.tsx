@@ -1,12 +1,12 @@
 import { getAllLists } from "@/utils/apiCalls/toDoCalls";
 import { useEffect, useState } from "react";
 
-const Index = () => {
-  const [allLists, setAllLists] = useState([]);
+const Lists = () => {
+  const [lists, setLists] = useState([]);
   const getData = async () => {
     const resp = await getAllLists();
     console.log(resp);
-    setAllLists(resp);
+    setLists(resp);
   };
   useEffect(() => {
     getData();
@@ -15,8 +15,8 @@ const Index = () => {
     <div>
       <h1>All To-Do lists</h1>
       <ul>
-        {allLists.length ? (
-          allLists.map((item) => (
+        {lists.length ? (
+          lists.map((item) => (
             <li key={item._id}>
               <h3>{item.title}</h3>
               <a href={`/allNotes/toDo/${item._id}`}>Check out</a>
@@ -30,4 +30,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Lists;

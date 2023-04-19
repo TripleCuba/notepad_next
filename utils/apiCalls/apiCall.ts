@@ -2,27 +2,23 @@ import axios from "axios";
 
 const baseUrl: String = "http://localhost:7000";
 
+const axiosNote = axios.create({
+  baseURL: "http://localhost:7000/notes",
+  withCredentials: true,
+});
+
 export const getAllNotes = async () => {
   try {
-    const resp = await axios.get(`${baseUrl}/getAllNotes`);
+    const resp = await axiosNote.get(`/getAllNotes`);
     return resp.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const postNote = async (data: { title: String; text: String }) => {
+export const postNote = async (data: { title: String; content: String }) => {
   try {
-    const resp = await axios.post(`${baseUrl}/post`, data);
-    return resp.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const createList = async (data: { title: String }) => {
-  try {
-    const resp = await axios.post(`${baseUrl}/toDo/createList`, data);
+    const resp = await axiosNote.post("/createNote", data);
     return resp.data;
   } catch (error) {
     console.error(error);

@@ -50,6 +50,7 @@ const ToDo = () => {
                   setListArray={setListArray}
                   index={index}
                   setInitialRender={setInitialRender}
+                  listId={listId}
                 />
               ))
             ) : (

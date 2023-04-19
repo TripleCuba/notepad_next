@@ -3,6 +3,7 @@ import element from "@/styles/allNotes/toDo/element.module.scss";
 import { ListElementType } from "./ListElement";
 import { emptyDataValidation } from "@/utils/validation/dataValidation";
 import { editElement } from "@/utils/apiCalls/toDoCalls";
+import { MdCheckCircle, MdCancel } from "react-icons/md";
 
 const EditElement = ({
   item,
@@ -35,10 +36,10 @@ const EditElement = ({
     item && setFormData(item);
   }, [isEditable, setFormData, item]);
   return (
-    <form className={element.edit} onSubmit={(e) => handleSubmit(e)}>
+    <form className={element.item}>
       {formData ? (
         <input
-          className={element.input}
+          className={element.textInput}
           type="text"
           value={formData.content}
           onChange={(e) => handleChange(e)}
@@ -48,10 +49,15 @@ const EditElement = ({
         <h2>error</h2>
       )}
 
-      <div className={element.buttons}>
-        <input type="submit" value="Save" className={element.save} />
-        <button className={element.cancel} onClick={() => setIsEditable(false)}>
-          Cancel
+      <div className={element.buttonContainer}>
+        <button onClick={(e) => handleSubmit(e)} className={element.iconButton}>
+          <MdCheckCircle className={element.icon} />
+        </button>
+        <button
+          className={element.iconButton}
+          onClick={() => setIsEditable(false)}
+        >
+          <MdCancel className={element.icon} />
         </button>
       </div>
     </form>

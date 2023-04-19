@@ -1,3 +1,4 @@
+@import "variables";
 .main {
   .title {
     text-align: center;
@@ -5,7 +6,7 @@
   display: flex;
   flex-direction: column;
   margin: 2rem auto;
-  background: #00000027;
+  background: $bgColor;
   border-radius: 5px;
   width: 75%;
 }
@@ -19,21 +20,29 @@
   margin: 1px auto;
   display: flex;
   border-bottom: 1px solid white;
+  .textInput {
+    width: 80%;
+    background-color: transparent;
+    border: none;
+    margin: 1rem auto;
+    text-align: center;
+    color: white;
+  }
 }
 
-.editDelete {
+.buttonContainer {
   .iconButton {
     width: 50%;
     height: 100%;
     border: none;
-    border-radius: 5px;
+    border-radius: $borderRadius;
     .icon {
       color: black;
       font-size: 1.5em;
     }
   }
   .iconButton:hover {
-    background: #9a9cea;
+    background: $primaryColor;
     .icon {
       color: white;
     }
@@ -91,4 +100,7 @@
   justify-content: center;
   align-items: center;
   color: white;
+}
+.addNewElement {
+  margin: 2rem auto;
 }

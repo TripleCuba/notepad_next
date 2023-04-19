@@ -34,7 +34,9 @@ export const editElement = async (
   const resp = axiosToDo.patch(`editElement/${id}`, data);
   return resp;
 };
-export const deleteElement = async (id: string) => {
-  const resp = axiosToDo.delete(`deleteElement/${id}`);
+export const deleteElement = async (id: string, listId: string) => {
+  const resp = axiosToDo.delete(`deleteElement/${id}`, {
+    data: { listId: listId },
+  });
   return resp;
 };

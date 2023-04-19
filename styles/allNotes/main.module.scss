@@ -1,0 +1,81 @@
+@import "variables";
+
+.main {
+  margin: auto;
+  width: 75%;
+  button,
+  .submit {
+    background-color: white;
+    border-radius: $borderRadius;
+  }
+  button:hover,
+  .submit:hover {
+    background: $primaryColor;
+    color: white;
+    transition: 0.5s;
+    border: 1px solid white;
+  }
+}
+.nav {
+  display: flex;
+  margin: 2rem auto 0;
+  gap: 2px;
+  button {
+    padding: 1rem;
+    flex: 1;
+  }
+}
+.container {
+  background: $bgColor;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0;
+  gap: 5px;
+}
+.element,
+.hoveredElement {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  border-radius: $borderRadius;
+  background-color: white;
+  min-height: 8em;
+  margin: auto;
+}
+.title,
+.content,
+.category {
+  padding: 2px 5px;
+  margin: 0;
+}
+.title {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  flex-grow: 2;
+}
+.content {
+  word-break: break-all;
+  flex-grow: 4;
+}
+.hoveredElement:hover {
+  min-height: 10em;
+  .content {
+    flex-grow: 8;
+  }
+  transition: 0.5s;
+}
+.category {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  color: $bgColor;
+}

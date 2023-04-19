@@ -10,17 +10,20 @@ const ListElement = ({
   item,
   index,
   listArray,
+  listId,
   setListArray,
   setInitialRender,
 }: {
   item: ListElementType;
   index: number;
   listArray: ListArray;
+  listId: string;
   setListArray: (value: React.SetStateAction<ListArray>) => void;
   setInitialRender: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [isEditable, setIsEditable] = useState(false);
   const [editItem, setEditItem] = useState<ListElementType>();
+
   const handleEditTrigger = (itemToEdit: ListElementType) => {
     setIsEditable(true);
     setEditItem(itemToEdit);
@@ -47,6 +50,7 @@ const ListElement = ({
             item={item}
             handleEditTrigger={handleEditTrigger}
             setInitialRender={setInitialRender}
+            listId={listId}
           />
         </div>
       )}

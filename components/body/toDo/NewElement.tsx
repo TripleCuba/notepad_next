@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import addToDo from "@/styles/allNotes/toDo/addToDo.module.scss";
+import element from "@/styles/allNotes/toDo/element.module.scss";
 import { emptyDataValidation } from "@/utils/validation/dataValidation";
 import { createElement } from "@/utils/apiCalls/toDoCalls";
+import { MdAddBox, MdCancel } from "react-icons/md";
 
 const NewElement = ({
   id,
@@ -28,14 +29,25 @@ const NewElement = ({
     }
   };
   return (
-    <div>
-      <form className={addToDo.form} onSubmit={(e) => handleSubmit(e)}>
+    <div className={element.addNewElement}>
+      <form className={element.item} onSubmit={(e) => handleSubmit(e)}>
         <input
+          className={element.textInput}
           value={formData.content}
           onChange={(e) => handleChange(e)}
           placeholder="add new to-do"
         />
-        <input type="submit" value="Add" className={addToDo.add} />
+        <div className={element.buttonContainer}>
+          <button
+            onClick={(e) => handleSubmit(e)}
+            className={element.iconButton}
+          >
+            <MdAddBox className={element.icon} />
+          </button>
+          <button className={element.iconButton}>
+            <MdCancel className={element.icon} />
+          </button>
+        </div>
       </form>
     </div>
   );

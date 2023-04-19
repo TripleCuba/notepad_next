@@ -1,3 +1,4 @@
+@import "variables";
 .main {
   display: flex;
   flex-direction: column;
@@ -5,9 +6,9 @@
   width: 75%;
   margin: 5rem auto;
   text-align: center;
-  background: #00000027;
+  background: $bgColor;
   height: 30em;
-  border-radius: 5px;
+  border-radius: $borderRadius;
   h1 {
     margin-top: 2rem;
   }
@@ -24,7 +25,7 @@
   input {
     text-align: center;
     padding: 0.5rem;
-    border-radius: 5px;
+    border-radius: $borderRadius;
     border: none;
   }
   .submit {
@@ -32,7 +33,7 @@
     margin: 2rem auto;
   }
   .submit:hover {
-    background: #9a9cea;
+    background: $primaryColor;
     color: white;
     transition: 1s;
   }
