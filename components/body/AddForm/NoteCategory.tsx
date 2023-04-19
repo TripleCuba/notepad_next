@@ -46,7 +46,7 @@ const NoteCategory = ({
       let duplicate = categories.find(
         (item: string) => item === element.category
       );
-      if (!duplicate) {
+      if (!duplicate && element.category) {
         categories.push(element.category);
       }
     });

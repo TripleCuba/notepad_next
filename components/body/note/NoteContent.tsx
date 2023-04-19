@@ -3,18 +3,18 @@ import main from "@/styles/allNotes/main.module.scss";
 
 const NoteContent = ({
   content,
-  index,
+  key,
   hoveredContent,
 }: {
   content: string;
-  index: number;
-  hoveredContent: { content: string; index: number };
+  key: number;
+  hoveredContent: { content: string; key: number };
 }) => {
   return (
     <div>
       {content.length > 100 ? (
         <p className={main.content}>
-          {hoveredContent && hoveredContent.index === index
+          {hoveredContent && hoveredContent.key === key
             ? hoveredContent.content
             : `${content.slice(0, 100)}...`}
         </p>

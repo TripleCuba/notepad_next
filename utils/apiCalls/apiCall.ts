@@ -16,9 +16,23 @@ export const getAllNotes = async () => {
   }
 };
 
-export const postNote = async (data: { title: String; content: String }) => {
+export const postNote = async (data: { title: string; content: string }) => {
   try {
     const resp = await axiosNote.post("/createNote", data);
+    return resp.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const editNote = async (data: {
+  title: string;
+  content: string;
+  category: string;
+  isFavorite: boolean;
+}) => {
+  try {
+    const resp = await axiosNote.patch("/editNote", data);
     return resp.data;
   } catch (error) {
     console.error(error);

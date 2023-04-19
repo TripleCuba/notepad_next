@@ -2,23 +2,25 @@ import { getAllNotes } from "@/utils/apiCalls/apiCall";
 import main from "@/styles/allNotes/main.module.scss";
 
 import React, { useState, useEffect } from "react";
-import NoteContent from "./NoteContent";
-type Note = { title: string; content: string; category: string; _id: string };
+import Note from "../note/Note";
+
+export type NoteType = {
+  title: string;
+  content: string;
+  category: string;
+  _id: string;
+  isFavorite: boolean;
+  date: Date;
+};
 const Notes = () => {
   const [notes, setNotes] = useState([]);
-  const initialHover = { content: "", index: NaN };
-  const [hoveredContent, setHoveredContent] = useState(initialHover);
 
-  const handleHover = (content: string, index: number) => {
-    let newContent =
-      content.length <= 200 ? content : `${content.slice(0, 200)}...`;
-    setHoveredContent({ content: newContent, index: index });
-  };
   const getData = async () => {
     const resp = await getAllNotes();
     setNotes(resp);
     console.log(resp);
   };
+
   useEffect(() => {
     getData();
   }, []);
@@ -30,24 +32,8 @@ const Notes = () => {
       </div>
       <ul className={main.list}>
         {notes.length ? (
-          notes.map((note: Note, index) => (
-            <li
-              onMouseOver={() => handleHover(note.content, index)}
-              onMouseOut={() => setHoveredContent(initialHover)}
-              key={note._id}
-              className={
-                note.content.length > 100 ? main.hoveredElement : main.element
-              }
-            >
-              <h3 className={main.title}>{note.title}</h3>
-              <NoteContent
-                content={note.content}
-                index={index}
-                hoveredContent={hoveredContent}
-              />
-
-              <p className={main.category}>{note.category}</p>
-            </li>
+          notes.map((note: NoteType, index) => (
+            <Note note={note} key={index} getData={getData} />
           ))
         ) : (
           <h3>There is no notes</h3>
