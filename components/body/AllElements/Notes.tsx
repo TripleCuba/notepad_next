@@ -13,12 +13,38 @@ export type NoteType = {
   date: Date;
 };
 const Notes = () => {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState<[NoteType] | []>([]);
+  const [sortBy, setSortBy] = useState("newest");
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortBy(e.target.value);
+    const sortedArray: [NoteType] = sortNotes(notes, e.target.value);
+    setNotes(sortedArray);
+  };
+  const sortNotes = (arr: [NoteType], sortByNewest: string) => {
+    let newArr = [...arr];
+    let sortedByDate;
 
+    sortedByDate = newArr.sort((a, b) => {
+      let dateA = new Date(a.date).getTime();
+      let dateB = new Date(b.date).getTime();
+      return sortByNewest === "newest" ? dateB - dateA : dateA - dateB;
+    });
+
+    let sortedArray = sortedByDate.sort((a, b) => {
+      if (a.isFavorite && !b.isFavorite) {
+        return -1;
+      } else if (!a.isFavorite && b.isFavorite) {
+        return 1;
+      } else {
+        return;
+      }
+    });
+    return sortedArray;
+  };
   const getData = async () => {
     const resp = await getAllNotes();
-    setNotes(resp);
-    console.log(resp);
+    const sortedNotes = sortNotes(resp, sortBy);
+    setNotes(sortedNotes);
   };
 
   useEffect(() => {
@@ -30,6 +56,10 @@ const Notes = () => {
       <div className={main.head}>
         <h1>Notes</h1>
       </div>
+      <select onChange={(e) => handleSortChange(e)}>
+        <option value={"newest"}>Newest to Oldest</option>
+        <option value={"oldest"}>Oldest to Newest</option>
+      </select>
       <ul className={main.list}>
         {notes.length ? (
           notes.map((note: NoteType, index) => (

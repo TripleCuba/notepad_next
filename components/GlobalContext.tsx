@@ -1,7 +1,7 @@
 import { getUser } from "@/utils/apiCalls/authApiCalls";
 import React, { useContext, useState, useEffect } from "react";
 
-const GlobalContext = React.createContext();
+const GlobalContext = React.createContext({ isAuthenticated: false });
 
 export function useUser() {
   return useContext(GlobalContext);
