@@ -1,13 +1,13 @@
 import { getUser } from "@/utils/apiCalls/authApiCalls";
 import React, { useContext, useState, useEffect } from "react";
 
-const GlobalContext = React.createContext({ isAuthenticated: false });
+const GlobalContext = React.createContext({});
 
 export function useUser() {
   return useContext(GlobalContext);
 }
 
-export const UserProvider = ({ children }) => {
+export const UserProvider = ({ children }: { children: any }) => {
   const [user, setUser] = useState<{
     isAuthenticated: boolean;
     username: string;
