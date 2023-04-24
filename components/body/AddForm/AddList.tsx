@@ -12,7 +12,7 @@ const AddList = () => {
     setFormData(newData);
     console.log(newData);
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const resp = await createList(formData);
     console.log(resp);

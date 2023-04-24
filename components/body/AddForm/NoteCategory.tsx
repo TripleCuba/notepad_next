@@ -22,9 +22,9 @@ const NoteCategory = ({
     }>
   >;
 }) => {
-  const [categories, setCategories] = useState<[string]>([]);
+  const [categories, setCategories] = useState<string[] | []>([]);
   const [newCategory, setNewCategory] = useState("");
-  const addCategory = (e) => {
+  const addCategory = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     let newFormData = { ...formData };
     let duplicate = categories.find((item) => item === newCategory);
@@ -41,16 +41,15 @@ const NoteCategory = ({
   const getData = async () => {
     let resp = await getAllNotes();
     console.log(resp);
-    let categories: [string] = [];
+    let newCategories: string[] | [] = [];
     resp.forEach((element: { category: string }) => {
-      let duplicate = categories.find(
-        (item: string) => item === element.category
-      );
+      let thisCategory = element.category;
+      let duplicate = categories.find((item: string) => item === thisCategory);
       if (!duplicate && element.category) {
-        categories.push(element.category);
+        newCategories.push(thisCategory);
       }
     });
-    setCategories(categories);
+    setCategories(newCategories);
   };
   useEffect(() => {
     getData();
