@@ -14,9 +14,9 @@ type List = {
 export type ListArray = [{ _id: string; content: string; isDone: boolean }];
 const ToDo = () => {
   const router = useRouter();
-  const [listTitle, setListTitle] = useState<string>();
-  const [listId, setListId] = useState<string>();
-  const [listArray, setListArray] = useState<ListArray>([]);
+  const [listTitle, setListTitle] = useState<string>("");
+  const [listId, setListId] = useState<string>("");
+  const [listArray, setListArray] = useState<ListArray | []>([]);
   const [initialRender, setInitialRender] = useState(false);
 
   const getData = async (id: string) => {
@@ -27,10 +27,14 @@ const ToDo = () => {
   };
   useEffect(() => {
     if (router.isReady && initialRender === false) {
-      let id: string = router.query.id;
-      setListId(id);
-      id && getData(id);
-      setInitialRender(true);
+      let newQuery = { ...router.query };
+      let { id } = newQuery;
+      const newId = Array.isArray(id) ? id[0] : id;
+      if (newId) {
+        setListId(newId);
+        getData(newId);
+        setInitialRender(true);
+      }
     }
   }, [router.isReady, router.query.id, initialRender, listArray]);
   return (

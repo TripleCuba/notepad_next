@@ -16,13 +16,15 @@ const EditElement = ({
   setIsEditable: React.Dispatch<React.SetStateAction<boolean>>;
   setInitialRender: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const [formData, setFormData] = useState<ListElementType>({});
+  const [formData, setFormData] = useState<ListElementType>(item);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let newFormData = { ...formData };
-    newFormData.content = e.target.value;
+    let newFormData = { ...formData, ["content"]: e.target.value };
     setFormData(newFormData);
   };
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
     let isValid = emptyDataValidation(formData);
     if (isValid) {

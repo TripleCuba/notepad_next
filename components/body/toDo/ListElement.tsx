@@ -18,7 +18,7 @@ const ListElement = ({
   index: number;
   listArray: ListArray;
   listId: string;
-  setListArray: (value: React.SetStateAction<ListArray>) => void;
+  setListArray: React.Dispatch<React.SetStateAction<ListArray | []>>;
   setInitialRender: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [isEditable, setIsEditable] = useState(false);
@@ -30,7 +30,7 @@ const ListElement = ({
   };
   return (
     <li onDoubleClick={() => handleEditTrigger(item)}>
-      {isEditable ? (
+      {isEditable && editItem ? (
         <EditElement
           item={editItem}
           isEditable={isEditable}

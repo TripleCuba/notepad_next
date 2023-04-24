@@ -12,7 +12,7 @@ const ListContent = ({
   item: { isDone: boolean; content: string };
   index: number;
   listArray: ListArray;
-  setListArray: (value: React.SetStateAction<ListArray>) => void;
+  setListArray: React.Dispatch<React.SetStateAction<ListArray | []>>;
   setInitialRender: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const handleCheckBox = async () => {

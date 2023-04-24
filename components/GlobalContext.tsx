@@ -1,17 +1,26 @@
 import { getUser } from "@/utils/apiCalls/authApiCalls";
 import React, { useContext, useState, useEffect } from "react";
-
-const GlobalContext = React.createContext({});
+type UserType = {
+  isAuthenticated: boolean;
+  username: string;
+};
+const initialValue = {
+  isAuthenticated: false,
+  username: "",
+};
+export type ContextType = {
+  user: UserType;
+  setUser: React.Dispatch<React.SetStateAction<UserType>>;
+  getUserData: () => Promise<void>;
+};
+const GlobalContext = React.createContext<ContextType | null>(null);
 
 export function useUser() {
   return useContext(GlobalContext);
 }
 
 export const UserProvider = ({ children }: React.PropsWithChildren<{}>) => {
-  const [user, setUser] = useState<{
-    isAuthenticated: boolean;
-    username: string;
-  }>({ isAuthenticated: false, username: "" });
+  const [user, setUser] = useState<UserType>(initialValue);
   const getUserData = async () => {
     const resp = await getUser();
     if (resp.success) {

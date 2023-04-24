@@ -13,14 +13,14 @@ export type NoteType = {
   date: Date;
 };
 const Notes = () => {
-  const [notes, setNotes] = useState<[NoteType] | []>([]);
+  const [notes, setNotes] = useState<NoteType[] | []>([]);
   const [sortBy, setSortBy] = useState("newest");
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortBy(e.target.value);
-    const sortedArray: [NoteType] = sortNotes(notes, e.target.value);
+    const sortedArray: NoteType[] = sortNotes(notes, e.target.value);
     setNotes(sortedArray);
   };
-  const sortNotes = (arr: [NoteType], sortByNewest: string) => {
+  const sortNotes = (arr: NoteType[], sortByNewest: string) => {
     let newArr = [...arr];
     let sortedByDate;
 
@@ -30,14 +30,13 @@ const Notes = () => {
       return sortByNewest === "newest" ? dateB - dateA : dateA - dateB;
     });
 
-    let sortedArray = sortedByDate.sort((a, b) => {
+    let sortedArray: NoteType[] = sortedByDate.sort((a, b) => {
       if (a.isFavorite && !b.isFavorite) {
         return -1;
       } else if (!a.isFavorite && b.isFavorite) {
         return 1;
-      } else {
-        return;
       }
+      return 0;
     });
     return sortedArray;
   };

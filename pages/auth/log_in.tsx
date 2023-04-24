@@ -1,5 +1,5 @@
 import LogInForm from "@/components/auth/LogInForm";
-import { useUser } from "@/components/GlobalContext";
+import { ContextType, useUser } from "@/components/GlobalContext";
 import { loginUser } from "@/utils/apiCalls/authApiCalls";
 import { emptyDataValidation } from "@/utils/validation/dataValidation";
 import { useRouter } from "next/router";
@@ -14,7 +14,7 @@ const LogIn = () => {
   const [formData, setFormData] = useState(initialData);
   const router = useRouter();
   const [error, setError] = useState("");
-  const { getUserData, user } = useUser();
+  const { getUserData, user } = useUser() as ContextType;
   user.isAuthenticated && router.push("/home");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newData = { ...formData };

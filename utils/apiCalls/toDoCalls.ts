@@ -1,3 +1,4 @@
+import { ListElementType } from "@/components/body/toDo/ListElement";
 import axios from "axios";
 
 const axiosToDo = axios.create({
@@ -27,10 +28,7 @@ export const createElement = async (
   const resp = axiosToDo.post(`createElement/${id}`, data);
   return resp;
 };
-export const editElement = async (
-  data: { _id: string; content: string; isDone: boolean },
-  id: string
-) => {
+export const editElement = async (data: ListElementType, id: string) => {
   const resp = axiosToDo.patch(`editElement/${id}`, data);
   return resp;
 };

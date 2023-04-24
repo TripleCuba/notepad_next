@@ -11,7 +11,8 @@ const NewElement = ({
   id: string;
   setInitialRender: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const [formData, setFormData] = useState({ _id: id, content: "" });
+  const initialData = { _id: id, content: "" };
+  const [formData, setFormData] = useState(initialData);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newFormData = { ...formData };
     newFormData.content = e.target.value;
@@ -28,9 +29,12 @@ const NewElement = ({
       alert("data is not valid");
     }
   };
+  const handleCancel = (e: React.MouseEvent) => {
+    setFormData(initialData);
+  };
   return (
     <div className={element.addNewElement}>
-      <form className={element.item} onSubmit={(e) => handleSubmit(e)}>
+      <form className={element.item}>
         <input
           className={element.textInput}
           value={formData.content}
@@ -45,7 +49,10 @@ const NewElement = ({
             <MdAddBox className={element.icon} />
           </button>
           <button className={element.iconButton}>
-            <MdCancel className={element.icon} />
+            <MdCancel
+              className={element.icon}
+              onClick={(e) => handleCancel(e)}
+            />
           </button>
         </div>
       </form>
