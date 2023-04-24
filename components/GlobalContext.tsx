@@ -7,7 +7,7 @@ export function useUser() {
   return useContext(GlobalContext);
 }
 
-export const UserProvider = ({ children }: { children: any }) => {
+export const UserProvider = ({ children }: React.PropsWithChildren<{}>) => {
   const [user, setUser] = useState<{
     isAuthenticated: boolean;
     username: string;
