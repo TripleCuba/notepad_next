@@ -41,7 +41,7 @@ const NoteCategory = ({
   const getData = async () => {
     let resp = await getAllNotes();
     console.log(resp);
-    let newCategories: string[] | [] = [];
+    let newCategories: string[] = [];
     resp.forEach((element: { category: string }) => {
       let thisCategory = element.category;
       let duplicate = categories.find((item: string) => item === thisCategory);
