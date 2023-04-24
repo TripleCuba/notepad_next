@@ -3,6 +3,7 @@
 .main {
   margin: auto;
   width: 75%;
+  position: relative;
   button,
   .submit {
     background-color: white;
@@ -102,4 +103,13 @@
     display: flex;
     justify-content: space-around;
   }
+}
+.listFooter {
+  box-shadow: $primaryColor 0px 8px 24px;
+  width: 50%;
+  padding: 1em;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 93%;
 }

@@ -3,6 +3,8 @@ import main from "@/styles/allNotes/main.module.scss";
 
 import React, { useState, useEffect } from "react";
 import Note from "../note/Note";
+import { useRouter } from "next/router";
+import ListHead from "../note/ListHead";
 
 export type NoteType = {
   title: string;
@@ -14,12 +16,9 @@ export type NoteType = {
 };
 const Notes = () => {
   const [notes, setNotes] = useState<NoteType[] | []>([]);
+  const [filteredNotes, setFilteredNotes] = useState<NoteType[] | []>([]);
   const [sortBy, setSortBy] = useState("newest");
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortBy(e.target.value);
-    const sortedArray: NoteType[] = sortNotes(notes, e.target.value);
-    setNotes(sortedArray);
-  };
+  const router = useRouter();
   const sortNotes = (arr: NoteType[], sortByNewest: string) => {
     let newArr = [...arr];
     let sortedByDate;
@@ -40,6 +39,7 @@ const Notes = () => {
     });
     return sortedArray;
   };
+
   const getData = async () => {
     const resp = await getAllNotes();
     const sortedNotes = sortNotes(resp, sortBy);
@@ -55,19 +55,37 @@ const Notes = () => {
       <div className={main.head}>
         <h1>Notes</h1>
       </div>
-      <select onChange={(e) => handleSortChange(e)}>
-        <option value={"newest"}>Newest to Oldest</option>
-        <option value={"oldest"}>Oldest to Newest</option>
-      </select>
+      <ListHead
+        notes={notes}
+        setNotes={setNotes}
+        setSortBy={setSortBy}
+        sortNotes={sortNotes}
+        getData={getData}
+        setFilteredNotes={setFilteredNotes}
+      />
+
       <ul className={main.list}>
-        {notes.length ? (
-          notes.map((note: NoteType, index) => (
+        {!filteredNotes.length ? (
+          notes.length ? (
+            notes.map((note: NoteType, index) => (
+              <Note note={note} key={index} getData={getData} />
+            ))
+          ) : (
+            <h3>There is no notes</h3>
+          )
+        ) : (
+          filteredNotes.map((note: NoteType, index) => (
             <Note note={note} key={index} getData={getData} />
           ))
-        ) : (
-          <h3>There is no notes</h3>
         )}
       </ul>
+
+      <button
+        className={main.listFooter}
+        onClick={() => router.push("addNote")}
+      >
+        Create new note
+      </button>
     </div>
   );
 };

@@ -44,8 +44,11 @@ const NoteCategory = ({
     let newCategories: string[] = [];
     resp.forEach((element: { category: string }) => {
       let thisCategory = element.category;
-      let duplicate = categories.find((item: string) => item === thisCategory);
-      if (!duplicate && element.category) {
+      let duplicate = newCategories.find(
+        (item: string) => item === thisCategory
+      );
+      console.log(duplicate);
+      if (!duplicate && thisCategory) {
         newCategories.push(thisCategory);
       }
     });
