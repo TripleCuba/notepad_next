@@ -16,8 +16,9 @@ export type NoteType = {
 };
 const Notes = () => {
   const [notes, setNotes] = useState<NoteType[] | []>([]);
-  const [filteredNotes, setFilteredNotes] = useState<NoteType[] | []>([]);
   const [sortBy, setSortBy] = useState("newest");
+  const [filterByState, setFilterByState] = useState("all");
+  const [initialRender, setInitialRender] = useState(true);
   const router = useRouter();
   const sortNotes = (arr: NoteType[], sortByNewest: string) => {
     let newArr = [...arr];
@@ -40,15 +41,30 @@ const Notes = () => {
     return sortedArray;
   };
 
-  const getData = async () => {
+  const getData = async (filterBy: string = filterByState) => {
     const resp = await getAllNotes();
     const sortedNotes = sortNotes(resp, sortBy);
-    setNotes(sortedNotes);
+    if (filterBy !== "all") {
+      setFilterByState(filterBy);
+
+      console.log(filterBy);
+      let filtered =
+        filterBy === "favorite"
+          ? sortedNotes.filter((note: NoteType) => note.isFavorite === true)
+          : sortedNotes.filter((note: NoteType) => note.category === filterBy);
+      setNotes(filtered);
+    } else {
+      setNotes(sortedNotes);
+    }
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (initialRender) {
+      getData();
+      console.log("labas");
+      setInitialRender(false);
+    }
+  }, [notes, initialRender]);
 
   return (
     <div className={main.container}>
@@ -61,22 +77,15 @@ const Notes = () => {
         setSortBy={setSortBy}
         sortNotes={sortNotes}
         getData={getData}
-        setFilteredNotes={setFilteredNotes}
       />
 
       <ul className={main.list}>
-        {!filteredNotes.length ? (
-          notes.length ? (
-            notes.map((note: NoteType, index) => (
-              <Note note={note} key={index} getData={getData} />
-            ))
-          ) : (
-            <h3>There is no notes</h3>
-          )
-        ) : (
-          filteredNotes.map((note: NoteType, index) => (
-            <Note note={note} key={index} getData={getData} />
+        {notes.length ? (
+          notes.map((note: NoteType, index) => (
+            <Note note={note} key={index} setInitialRender={setInitialRender} />
           ))
+        ) : (
+          <h3>There is no notes</h3>
         )}
       </ul>
 

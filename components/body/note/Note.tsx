@@ -8,11 +8,11 @@ import NoteFooter from "./NoteFooter";
 const Note = ({
   note,
   key,
-  getData,
+  setInitialRender,
 }: {
   note: NoteType;
   key: number;
-  getData: () => Promise<void>;
+  setInitialRender: (value: React.SetStateAction<boolean>) => void;
 }) => {
   const initialHover = { content: "", key: NaN };
   const [hoveredContent, setHoveredContent] = useState(initialHover);
@@ -29,7 +29,7 @@ const Note = ({
       key={note._id}
       className={note.content.length > 100 ? main.hoveredElement : main.element}
     >
-      <NoteHead getData={getData} note={note} />
+      <NoteHead setInitialRender={setInitialRender} note={note} />
       <NoteContent
         content={note.content}
         key={key}

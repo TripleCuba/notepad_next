@@ -4,14 +4,10 @@ import { getAllNotes } from "@/utils/apiCalls/apiCall";
 
 const FilterList = ({
   notes,
-  setNotes,
   getData,
-  setFilteredNotes,
 }: {
   notes: NoteType[];
-  setNotes: React.Dispatch<React.SetStateAction<[] | NoteType[]>>;
-  getData: () => Promise<void>;
-  setFilteredNotes: React.Dispatch<React.SetStateAction<[] | NoteType[]>>;
+  getData: (filterBy?: string) => Promise<void>;
 }) => {
   const [categories, setCategories] = useState<string[] | []>([]);
   const getCategories = async () => {
@@ -20,7 +16,6 @@ const FilterList = ({
     resp.forEach((note: NoteType) => {
       const thisCategory = note.category;
       const duplicate = newArray.find((item: string) => item === thisCategory);
-      console.log(duplicate);
       if (!duplicate && thisCategory) {
         newArray.push(thisCategory);
       }
@@ -29,18 +24,11 @@ const FilterList = ({
   };
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let newCategory = e.target.value;
-
-    const newNotesArray = [...notes];
-    const filteredArray = newNotesArray.filter(
-      (note: NoteType) => note.category === newCategory
-    );
-    console.log(filteredArray);
-    setNotes(filteredArray);
+    getData(newCategory);
   };
 
   useEffect(() => {
     getCategories();
-    console.log(notes);
   }, [notes]);
   return (
     <div>

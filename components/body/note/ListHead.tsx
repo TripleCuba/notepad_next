@@ -8,14 +8,12 @@ const ListHead = ({
   setSortBy,
   sortNotes,
   getData,
-  setFilteredNotes,
 }: {
   notes: NoteType[] | [];
   setNotes: React.Dispatch<React.SetStateAction<[] | NoteType[]>>;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   sortNotes: (arr: NoteType[], sortByNewest: string) => NoteType[];
-  getData: () => Promise<void>;
-  setFilteredNotes: React.Dispatch<React.SetStateAction<[] | NoteType[]>>;
+  getData: (filterBy?: string) => Promise<void>;
 }) => {
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortBy(e.target.value);
@@ -32,12 +30,7 @@ const ListHead = ({
           <option value={"oldest"}>Oldest</option>
         </select>
       </div>
-      <FilterList
-        notes={notes}
-        setNotes={setNotes}
-        getData={getData}
-        setFilteredNotes={setFilteredNotes}
-      />
+      <FilterList notes={notes} getData={getData} />
     </div>
   );
 };

@@ -6,10 +6,10 @@ import { editNote } from "@/utils/apiCalls/apiCall";
 
 const NoteHead = ({
   note,
-  getData,
+  setInitialRender,
 }: {
   note: NoteType;
-  getData: () => Promise<void>;
+  setInitialRender: (value: React.SetStateAction<boolean>) => void;
 }) => {
   const handleFavorite = async (data: NoteType) => {
     data.isFavorite ? (data.isFavorite = false) : (data.isFavorite = true);
@@ -18,7 +18,7 @@ const NoteHead = ({
     } catch (err) {
       alert(err);
     }
-    getData();
+    setInitialRender(true);
   };
   return (
     <div className={main.noteHead}>
