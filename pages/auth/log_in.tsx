@@ -21,7 +21,9 @@ const LogIn = () => {
     newData = { ...newData, [e.target.name]: e.target.value };
     setFormData(newData);
   };
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
     const isValid = emptyDataValidation(formData);
     if (isValid) {

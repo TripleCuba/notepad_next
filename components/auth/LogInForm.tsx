@@ -7,11 +7,14 @@ const LogInForm = ({
   formData,
 }: {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  handleSubmit: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => Promise<void>;
   formData: { username: string; password: string };
 }) => {
   return (
-    <form className={auth.form} onSubmit={(e) => handleSubmit(e)}>
+    <form className={auth.form}>
+      {/* <form className={auth.form} onSubmit={(e) => handleSubmit(e)}> */}
       <input
         type="text"
         placeholder="Username"
@@ -26,7 +29,8 @@ const LogInForm = ({
         value={formData.password}
         onChange={(e) => handleChange(e)}
       />
-      <input type="submit" value="Login" className={auth.submit} />
+      {/* <input type="submit" value="Login" className={auth.submit} /> */}
+      <button onClick={(e) => handleSubmit(e)}>Login test</button>
     </form>
   );
 };
