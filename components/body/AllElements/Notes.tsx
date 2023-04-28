@@ -41,13 +41,13 @@ const Notes = () => {
     return sortedArray;
   };
 
-  const getData = async (filterBy: string = filterByState) => {
+  const getData = async (filterBy: string) => {
     const resp = await getAllNotes();
     const sortedNotes = sortNotes(resp, sortBy);
     if (filterBy !== "all") {
       setFilterByState(filterBy);
 
-      console.log(filterBy);
+      console.log(filterByState);
       let filtered =
         filterBy === "favorite"
           ? sortedNotes.filter((note: NoteType) => note.isFavorite === true)
@@ -60,8 +60,7 @@ const Notes = () => {
 
   useEffect(() => {
     if (initialRender) {
-      getData();
-      console.log("labas");
+      getData(filterByState);
       setInitialRender(false);
     }
   }, [notes, initialRender]);

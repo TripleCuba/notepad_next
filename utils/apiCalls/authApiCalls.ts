@@ -1,5 +1,8 @@
 import axios from "axios";
-const baseUrl: String = "http://localhost:7000/user";
+const axiosUser = axios.create({
+  baseURL: "http://localhost:7000/user/",
+  withCredentials: true,
+});
 
 export const createUser = async (data: {
   username: string;
@@ -7,7 +10,7 @@ export const createUser = async (data: {
   password2: string;
   email: string;
 }) => {
-  let resp = await axios.post(`${baseUrl}/createUser/`, data);
+  let resp = await axiosUser.post(`createUser/`, data);
   return resp.data;
 };
 
@@ -15,20 +18,16 @@ export const loginUser = async (data: {
   username: string;
   password: string;
 }) => {
-  let resp = await axios.post(`${baseUrl}/login/`, data, {
-    withCredentials: true,
-  });
+  let resp = await axiosUser.post(`login/`, data);
   return resp.data;
 };
 
 export const logOut = async () => {
-  let resp = await axios.get(`${baseUrl}/logOut`, { withCredentials: true });
+  let resp = await axiosUser.get(`logOut/`);
   return resp.data;
 };
 
 export const getUser = async () => {
-  const resp = await axios.get(`${baseUrl}/getUser/`, {
-    withCredentials: true,
-  });
+  const resp = await axiosUser.get(`getUser/`);
   return resp.data;
 };

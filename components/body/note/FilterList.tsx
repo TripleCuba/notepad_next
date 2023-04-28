@@ -7,7 +7,7 @@ const FilterList = ({
   getData,
 }: {
   notes: NoteType[];
-  getData: (filterBy?: string) => Promise<void>;
+  getData: (filterBy: string) => Promise<void>;
 }) => {
   const [categories, setCategories] = useState<string[] | []>([]);
   const getCategories = async () => {
@@ -34,8 +34,9 @@ const FilterList = ({
     <div>
       <label htmlFor="filter">Filter by category</label>
       <select onChange={(e) => handleFilterChange(e)}>
-        <option>all</option>
+        <option value="all">all</option>
         <option value="">Uncategorized</option>
+        <option value="favorite">FAvorites</option>
         {categories &&
           categories.map((category: string, index: number) => (
             <option key={index}>{category}</option>

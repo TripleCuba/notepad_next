@@ -1,3 +1,4 @@
+import { ContextType, useUser } from "@/components/GlobalContext";
 import SignUpForm from "@/components/auth/SignUpForm";
 import auth from "@/styles/auth/auth.module.scss";
 import { createUser } from "@/utils/apiCalls/authApiCalls";
@@ -6,6 +7,7 @@ import {
   passwordMatchValidation,
 } from "@/utils/validation/authValidation";
 import { emptyDataValidation } from "@/utils/validation/dataValidation";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 type SignUpFormData = {
   username: string;
@@ -22,7 +24,9 @@ const SignUp = () => {
   };
   const [formData, setFormData] = useState(initialData);
   const [error, setError] = useState("");
-
+  const { getUserData, user } = useUser() as ContextType;
+  const router = useRouter();
+  user.isAuthenticated && router.push("/home");
   const validateData = (data: SignUpFormData) => {
     const isNotEmpty = emptyDataValidation(data);
     const isEmailValid = emailValidation(data.email);
@@ -50,11 +54,20 @@ const SignUp = () => {
     newData = { ...newData, [e.target.name]: e.target.value };
     setFormData(newData);
   };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const isValid = validateData(formData);
     if (isValid) {
-      let resp = createUser(formData);
+      try {
+        let resp = await createUser(formData);
+        console.log(resp);
+        if (resp.success) {
+          getUserData();
+          router.push("/home");
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   setTimeout(() => {

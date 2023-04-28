@@ -32,14 +32,14 @@ const SignUpForm = ({
         onChange={(e) => handleChange(e)}
       />
       <input
-        type="text"
+        type="password"
         placeholder="Password"
         name="password1"
         value={formData.password1}
         onChange={(e) => handleChange(e)}
       />
       <input
-        type="text"
+        type="password"
         placeholder="Confirm Password"
         name="password2"
         value={formData.password2}

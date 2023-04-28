@@ -13,7 +13,7 @@ const ListHead = ({
   setNotes: React.Dispatch<React.SetStateAction<[] | NoteType[]>>;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   sortNotes: (arr: NoteType[], sortByNewest: string) => NoteType[];
-  getData: (filterBy?: string) => Promise<void>;
+  getData: (filterBy: string) => Promise<void>;
 }) => {
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortBy(e.target.value);

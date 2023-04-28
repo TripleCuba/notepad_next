@@ -28,6 +28,7 @@
 }
 .container {
   background: $bgColor;
+  border-radius: $borderRadius;
   display: flex;
   flex-direction: column;
 }

@@ -40,7 +40,7 @@ const ToDo = () => {
   return (
     <div className={element.main}>
       {initialRender === false ? (
-        <h1>Loading</h1>
+        <h1>Loading...</h1>
       ) : (
         <div>
           <h1 className={element.title}>{listTitle}</h1>
@@ -64,6 +64,7 @@ const ToDo = () => {
           <NewElement id={listId} setInitialRender={setInitialRender} />
         </div>
       )}
+      <button onClick={() => router.push("/allNotes")}>go back</button>
     </div>
   );
 };
