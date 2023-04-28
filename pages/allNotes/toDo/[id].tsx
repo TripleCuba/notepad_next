@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { getList } from "@/utils/apiCalls/toDoCalls";
 import element from "@/styles/allNotes/toDo/element.module.scss";
-
+type ToDo = { _id: string; content: string; isDone: boolean };
 type List = {
   _id: string;
   title: string;
-  toDo: [{ _id: string; content: string; isDone: boolean }];
+  toDo: ToDo[];
 };
 
 export type ListArray = [{ _id: string; content: string; isDone: boolean }];
@@ -21,9 +21,12 @@ const ToDo = () => {
 
   const getData = async (id: string) => {
     const resp = await getList(id);
-    console.log(resp);
-    setListTitle(resp.title);
-    setListArray(resp.toDo);
+    try {
+      setListTitle(resp.title);
+      setListArray(resp.toDo);
+    } catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {
     if (router.isReady && initialRender === false) {
@@ -31,8 +34,9 @@ const ToDo = () => {
       let { id } = newQuery;
       const newId = Array.isArray(id) ? id[0] : id;
       if (newId) {
-        setListId(newId);
         getData(newId);
+        setListId(newId);
+
         setInitialRender(true);
       }
     }
@@ -50,9 +54,6 @@ const ToDo = () => {
                 <ListElement
                   key={index}
                   item={item}
-                  listArray={listArray}
-                  setListArray={setListArray}
-                  index={index}
                   setInitialRender={setInitialRender}
                   listId={listId}
                 />

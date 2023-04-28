@@ -4,37 +4,40 @@ import { NoteType } from "../AllElements/Notes";
 import main from "@/styles/allNotes/main.module.scss";
 import NoteHead from "./NoteHead";
 import NoteFooter from "./NoteFooter";
+import NoteSidebar from "./NoteSidebar";
 
 const Note = ({
   note,
-  key,
   setInitialRender,
 }: {
   note: NoteType;
-  key: number;
   setInitialRender: (value: React.SetStateAction<boolean>) => void;
 }) => {
-  const initialHover = { content: "", key: NaN };
+  const initialHover = { content: "", id: "" };
   const [hoveredContent, setHoveredContent] = useState(initialHover);
-  const handleHover = (content: string, key: number) => {
+  const handleHover = (content: string, id: string) => {
     let newContent =
       content.length <= 200 ? content : `${content.slice(0, 200)}...`;
-    setHoveredContent({ content: newContent, key: key });
+    setHoveredContent({ content: newContent, id: id });
   };
 
   return (
     <li
-      onMouseOver={() => handleHover(note.content, key)}
+      onMouseOver={() => handleHover(note.content, note._id)}
       onMouseOut={() => setHoveredContent(initialHover)}
-      key={note._id}
       className={note.content.length > 100 ? main.hoveredElement : main.element}
     >
-      <NoteHead setInitialRender={setInitialRender} note={note} />
-      <NoteContent
-        content={note.content}
-        key={key}
-        hoveredContent={hoveredContent}
-      />
+      <div className={main.body}>
+        <div className={main.mainContent}>
+          <NoteHead note={note} />
+          <NoteContent
+            content={note.content}
+            id={note._id}
+            hoveredContent={hoveredContent}
+          />
+        </div>
+        <NoteSidebar note={note} setInitialRender={setInitialRender} />
+      </div>
       <NoteFooter note={note} />
     </li>
   );

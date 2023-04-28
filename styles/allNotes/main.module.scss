@@ -32,20 +32,7 @@
   display: flex;
   flex-direction: column;
 }
-.favoriteIcon,
-.favoriteIconClicked {
-  font-size: 1.5em;
-  cursor: pointer;
-}
-.favoriteIcon:hover {
-  color: gold;
-}
-.favoriteIconClicked {
-  color: rgb(220, 187, 0);
-}
-.favoriteIconClicked:hover {
-  color: black;
-}
+
 .list {
   display: flex;
   list-style: none;
@@ -64,20 +51,44 @@
   min-height: 5em;
   margin: auto;
 }
+
+.body {
+  padding: 2px 5px;
+  display: flex;
+  width: 100%;
+}
+.mainContent {
+  width: 90%;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 10%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  .favoriteIcon:hover {
+    color: gold;
+  }
+  .favoriteIconClicked {
+    color: rgb(220, 187, 0);
+  }
+  .favoriteIconClicked:hover {
+    color: black;
+  }
+  .deleteIcon:hover {
+    color: red;
+  }
+}
+
 .noteHead,
 .content,
 .category {
-  padding: 2px 5px;
   margin: 0;
 }
 .noteHead {
-  display: flex;
-  align-items: center;
-  justify-self: center;
   flex-grow: 1;
-  .title {
-    width: 90%;
-  }
 }
 .content {
   word-break: break-all;

@@ -38,3 +38,12 @@ export const editNote = async (data: {
     console.error(error);
   }
 };
+
+export const deleteNote = async (id: string) => {
+  try {
+    const resp = await axiosNote.delete(`/deleteNote/${id}`);
+    return resp.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

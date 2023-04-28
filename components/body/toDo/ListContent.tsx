@@ -1,29 +1,25 @@
 import React from "react";
 import element from "@/styles/allNotes/toDo/element.module.scss";
-import type { ListArray } from "@/pages/allNotes/toDo/[id]";
 import { editElement } from "@/utils/apiCalls/toDoCalls";
 
 const ListContent = ({
   item,
-  index,
-  listArray,
   setInitialRender,
 }: {
-  item: { isDone: boolean; content: string };
-  index: number;
-  listArray: ListArray;
-  setListArray: React.Dispatch<React.SetStateAction<ListArray | []>>;
+  item: { isDone: boolean; content: string; _id: string };
   setInitialRender: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const handleCheckBox = async () => {
-    let newArray = [...listArray];
-    let newItem = newArray[index];
-    if (newItem.isDone) {
-      newItem.isDone = false;
-      await editElement(newItem, newItem._id);
+  const handleCheckBox = async (item: {
+    isDone: boolean;
+    content: string;
+    _id: string;
+  }) => {
+    if (item.isDone) {
+      item.isDone = false;
+      await editElement(item, item._id);
     } else {
-      newItem.isDone = true;
-      await editElement(newItem, newItem._id);
+      item.isDone = true;
+      await editElement(item, item._id);
     }
 
     setInitialRender(false);
@@ -35,22 +31,22 @@ const ListContent = ({
         <input
           type="checkbox"
           checked
-          id={`isDone${index}`}
+          id={item._id}
           onChange={() => {
-            handleCheckBox();
+            handleCheckBox(item);
           }}
         />
       ) : (
         <input
           type="checkbox"
-          id={`isDone${index}`}
+          id={item._id}
           onChange={() => {
-            handleCheckBox();
+            handleCheckBox(item);
           }}
         />
       )}
 
-      <label htmlFor={`isDone${index}`} className={element.label}>
+      <label htmlFor={item._id} className={element.label}>
         {item.isDone ? (
           <h3 className={element.pressed}>{item.content}</h3>
         ) : (
