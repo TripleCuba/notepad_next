@@ -6,6 +6,7 @@ const NoteCategory = ({
   formData,
   handleChange,
   setFormData,
+  setMessage,
 }: {
   formData: { title: string; content: string; category: string };
   handleChange: (
@@ -21,17 +22,29 @@ const NoteCategory = ({
       category: string;
     }>
   >;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const [categories, setCategories] = useState<string[] | []>([]);
   const [newCategory, setNewCategory] = useState("");
+  const restrictedCategories = [
+    "all",
+    "All",
+    "favorite",
+    "Favorites",
+    "Uncategorized",
+  ];
   const addCategory = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     let newFormData = { ...formData };
     let duplicate = categories.find((item) => item === newCategory);
     if (!duplicate) {
-      let newArr = [...categories, newCategory];
-      setCategories(newArr);
-      newFormData.category = newCategory;
+      if (restrictedCategories.includes(newCategory)) {
+        setMessage(`${newCategory} is not allowed`);
+      } else {
+        let newArr = [...categories, newCategory];
+        setCategories(newArr);
+        newFormData.category = newCategory;
+      }
     } else {
       newFormData.category = newCategory;
     }
@@ -40,14 +53,14 @@ const NoteCategory = ({
   };
   const getData = async () => {
     let resp = await getAllNotes();
-    console.log(resp);
+
     let newCategories: string[] = [];
     resp.forEach((element: { category: string }) => {
       let thisCategory = element.category;
       let duplicate = newCategories.find(
         (item: string) => item === thisCategory
       );
-      console.log(duplicate);
+
       if (!duplicate && thisCategory) {
         newCategories.push(thisCategory);
       }

@@ -1,10 +1,10 @@
 import { getAllNotes } from "@/utils/apiCalls/apiCall";
-import main from "@/styles/allNotes/main.module.scss";
+import notesList from "@/styles/allNotes/notesList.module.scss";
 
-import React, { useState, useEffect } from "react";
-import Note from "../note/Note";
+import React, { useState, useEffect, useMemo } from "react";
+import Note from "./Note";
 import { useRouter } from "next/router";
-import ListHead from "../note/ListHead";
+import ListHead from "./ListHead";
 
 export type NoteType = {
   title: string;
@@ -41,46 +41,50 @@ const Notes = () => {
     return sortedArray;
   };
 
-  const getData = async (filterBy: string) => {
+  const getData = async () => {
     const resp = await getAllNotes();
     const sortedNotes = sortNotes(resp, sortBy);
-    if (filterBy !== "all") {
-      setFilterByState(filterBy);
-
-      console.log(filterByState);
-      let filtered =
-        filterBy === "favorite"
-          ? sortedNotes.filter((note: NoteType) => note.isFavorite === true)
-          : sortedNotes.filter((note: NoteType) => note.category === filterBy);
-      setNotes(filtered);
-    } else {
-      setNotes(sortedNotes);
-    }
+    setNotes(sortedNotes);
+    console.log(sortedNotes);
   };
 
   useEffect(() => {
     if (initialRender) {
-      getData(filterByState);
+      getData();
       setInitialRender(false);
     }
-  }, [notes, initialRender]);
+  }, [initialRender]);
 
+  const filteredData = useMemo(() => {
+    const newNotes = [...notes];
+    let filteredNotes: NoteType[] | [];
+    if (filterByState !== "all") {
+      filteredNotes =
+        filterByState === "favorite"
+          ? newNotes.filter((item: NoteType) => item.isFavorite)
+          : newNotes.filter(
+              (item: NoteType) => item.category === filterByState
+            );
+    } else {
+      filteredNotes = newNotes;
+    }
+
+    return filteredNotes;
+  }, [notes, filterByState]);
   return (
-    <div className={main.container}>
-      <div className={main.head}>
-        <h1>Notes</h1>
-      </div>
+    <div className={notesList.container}>
+      <h1 className={notesList.listTitle}>Notes</h1>
       <ListHead
         notes={notes}
         setNotes={setNotes}
         setSortBy={setSortBy}
         sortNotes={sortNotes}
-        getData={getData}
+        setFilterByState={setFilterByState}
       />
 
-      <ul className={main.list}>
-        {notes.length ? (
-          notes.map((note: NoteType, index) => (
+      <ul className={notesList.list}>
+        {filteredData.length ? (
+          filteredData.map((note: NoteType, index) => (
             <Note note={note} key={index} setInitialRender={setInitialRender} />
           ))
         ) : (
@@ -89,7 +93,7 @@ const Notes = () => {
       </ul>
 
       <button
-        className={main.listFooter}
+        className={notesList.listFooter}
         onClick={() => router.push("addNote")}
       >
         Create new note

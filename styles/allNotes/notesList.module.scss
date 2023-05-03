@@ -26,13 +26,30 @@
     flex: 1;
   }
 }
+.listHeader {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  margin: auto;
+  .headSelect {
+    display: flex;
+    gap: 5px;
+    select {
+      border: none;
+      border-radius: $borderRadius;
+    }
+  }
+}
 .container {
   background: $bgColor;
   border-radius: $borderRadius;
   display: flex;
   flex-direction: column;
 }
-
+.listTitle {
+  margin: 2rem;
+  text-align: center;
+}
 .list {
   display: flex;
   list-style: none;
@@ -53,17 +70,20 @@
 }
 
 .body {
-  padding: 2px 5px;
+  margin-top: 1rem;
   display: flex;
   width: 100%;
 }
 .mainContent {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.5rem;
   width: 90%;
 }
 .sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 10%;
   font-size: 1.2rem;
@@ -85,9 +105,12 @@
 .noteHead,
 .content,
 .category {
-  margin: 0;
+  padding: 0;
 }
 .noteHead {
+  h3 {
+    margin-top: 0;
+  }
   flex-grow: 1;
 }
 .content {
@@ -103,6 +126,7 @@
   transition: 0.5s;
 }
 .noteFoot {
+  padding: 0 0.5rem;
   display: flex;
   align-items: center;
   flex-grow: 1;

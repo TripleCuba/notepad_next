@@ -16,12 +16,11 @@ const AddNote = () => {
   ) => {
     let newData = { ...formData, [e.target.name]: e.target.value };
     setFormData(newData);
-    console.log(newData);
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let resp = await postNote(formData);
-    console.log(resp);
+
     if (resp) {
       setFormData(initialData);
       setMessage("You have created a note successfully");
@@ -50,6 +49,7 @@ const AddNote = () => {
           formData={formData}
           handleChange={handleChange}
           setFormData={setFormData}
+          setMessage={setMessage}
         />
         <label htmlFor="content">Content</label>
         <textarea

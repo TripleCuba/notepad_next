@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NoteContent from "./NoteContent";
-import { NoteType } from "../AllElements/Notes";
-import main from "@/styles/allNotes/main.module.scss";
+import { NoteType } from "./Notes";
+import notesList from "@/styles/allNotes/notesList.module.scss";
 import NoteHead from "./NoteHead";
 import NoteFooter from "./NoteFooter";
 import NoteSidebar from "./NoteSidebar";
@@ -25,10 +25,12 @@ const Note = ({
     <li
       onMouseOver={() => handleHover(note.content, note._id)}
       onMouseOut={() => setHoveredContent(initialHover)}
-      className={note.content.length > 100 ? main.hoveredElement : main.element}
+      className={
+        note.content.length > 100 ? notesList.hoveredElement : notesList.element
+      }
     >
-      <div className={main.body}>
-        <div className={main.mainContent}>
+      <div className={notesList.body}>
+        <div className={notesList.mainContent}>
           <NoteHead note={note} />
           <NoteContent
             content={note.content}

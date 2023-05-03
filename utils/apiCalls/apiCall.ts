@@ -16,6 +16,15 @@ export const getAllNotes = async () => {
   }
 };
 
+export const getNote = async (id: string) => {
+  try {
+    const resp = await axiosNote.get(`/getNote/${id}`);
+    return resp.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const postNote = async (data: { title: string; content: string }) => {
   try {
     const resp = await axiosNote.post("/createNote", data);

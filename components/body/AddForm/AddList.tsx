@@ -10,12 +10,11 @@ const AddList = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newData = { ...formData, [e.target.name]: e.target.value };
     setFormData(newData);
-    console.log(newData);
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const resp = await createList(formData);
-    console.log(resp);
+
     resp && router.push(`/allNotes/toDo/${resp._id}`);
   };
   return (

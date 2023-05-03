@@ -1,19 +1,20 @@
 import React from "react";
-import { NoteType } from "../AllElements/Notes";
+import { NoteType } from "./Notes";
 import FilterList from "./FilterList";
+import notesList from "@/styles/allNotes/notesList.module.scss";
 
 const ListHead = ({
   notes,
   setNotes,
   setSortBy,
   sortNotes,
-  getData,
+  setFilterByState,
 }: {
   notes: NoteType[] | [];
   setNotes: React.Dispatch<React.SetStateAction<[] | NoteType[]>>;
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   sortNotes: (arr: NoteType[], sortByNewest: string) => NoteType[];
-  getData: (filterBy: string) => Promise<void>;
+  setFilterByState: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortBy(e.target.value);
@@ -22,15 +23,15 @@ const ListHead = ({
   };
 
   return (
-    <div>
-      <div>
+    <div className={notesList.listHeader}>
+      <div className={notesList.headSelect}>
         <label htmlFor="sort">Sort by</label>
         <select name="sort" onChange={(e) => handleSortChange(e)}>
           <option value={"newest"}>Newest</option>
           <option value={"oldest"}>Oldest</option>
         </select>
       </div>
-      <FilterList notes={notes} getData={getData} />
+      <FilterList notes={notes} setFilterByState={setFilterByState} />
     </div>
   );
 };

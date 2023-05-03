@@ -5,11 +5,6 @@ import React, { useEffect, useState } from "react";
 import { getList } from "@/utils/apiCalls/toDoCalls";
 import element from "@/styles/allNotes/toDo/element.module.scss";
 type ToDo = { _id: string; content: string; isDone: boolean };
-type List = {
-  _id: string;
-  title: string;
-  toDo: ToDo[];
-};
 
 export type ListArray = [{ _id: string; content: string; isDone: boolean }];
 const ToDo = () => {

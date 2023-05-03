@@ -60,7 +60,7 @@ const SignUp = () => {
     if (isValid) {
       try {
         let resp = await createUser(formData);
-        console.log(resp);
+
         if (resp.success) {
           getUserData();
           router.push("/home");

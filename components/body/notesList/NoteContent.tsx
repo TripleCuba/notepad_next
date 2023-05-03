@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import main from "@/styles/allNotes/main.module.scss";
+import React from "react";
+import notesList from "@/styles/allNotes/notesList.module.scss";
 
 const NoteContent = ({
   content,
@@ -13,13 +13,13 @@ const NoteContent = ({
   return (
     <div>
       {content.length > 100 ? (
-        <p className={main.content}>
+        <p className={notesList.content}>
           {hoveredContent && hoveredContent.id === id
             ? hoveredContent.content
             : `${content.slice(0, 100)}...`}
         </p>
       ) : (
-        <p className={main.content}>{content}</p>
+        <p className={notesList.content}>{content}</p>
       )}
     </div>
   );

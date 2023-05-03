@@ -24,7 +24,7 @@ const NewElement = ({
     let isValid = emptyDataValidation(formData);
     if (isValid) {
       const resp = await createElement(formData, formData._id);
-      resp ? setInitialRender(false) : console.log(resp);
+      setInitialRender(false);
     } else {
       alert("data is not valid");
     }

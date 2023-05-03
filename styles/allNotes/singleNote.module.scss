@@ -1,0 +1,51 @@
+@import "variables";
+
+.main {
+  display: flex;
+  background-color: $bgColor;
+  border-radius: $borderRadius;
+  margin: 5rem auto;
+  min-height: 20em;
+  width: 75%;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: $borderRadius;
+  padding: 0.5rem;
+  margin: auto;
+  width: 75%;
+}
+
+.body {
+}
+
+.noteHeader {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  h1 {
+    text-align: center;
+    width: 90%;
+  }
+  .iconContainer {
+    text-align: center;
+    width: 10%;
+  }
+}
+.star {
+  color: black;
+}
+.star:hover {
+  color: gold;
+}
+.starFavorite {
+  color: gold;
+}
+.starFavorite:hover {
+  color: black;
+}
+
+.noteButtons {
+}

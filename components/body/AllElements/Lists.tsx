@@ -5,7 +5,7 @@ const Lists = () => {
   const [lists, setLists] = useState([]);
   const getData = async () => {
     const resp = await getAllLists();
-    console.log(resp);
+
     setLists(resp);
   };
   useEffect(() => {

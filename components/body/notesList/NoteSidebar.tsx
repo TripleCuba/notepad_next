@@ -1,8 +1,9 @@
 import React from "react";
-import { NoteType } from "../AllElements/Notes";
+import { NoteType } from "./Notes";
 import { MdOutlineStarOutline, MdStar, MdEdit, MdDelete } from "react-icons/md";
-import main from "@/styles/allNotes/main.module.scss";
+import notesList from "@/styles/allNotes/notesList.module.scss";
 import { deleteNote, editNote } from "@/utils/apiCalls/apiCall";
+import { useRouter } from "next/router";
 
 const NoteSidebar = ({
   note,
@@ -11,6 +12,7 @@ const NoteSidebar = ({
   note: NoteType;
   setInitialRender: (value: React.SetStateAction<boolean>) => void;
 }) => {
+  const router = useRouter();
   const handleFavorite = async (data: NoteType) => {
     data.isFavorite ? (data.isFavorite = false) : (data.isFavorite = true);
     try {
@@ -25,21 +27,21 @@ const NoteSidebar = ({
     setInitialRender(true);
   };
   return (
-    <div className={main.sidebar}>
+    <div className={notesList.sidebar}>
       {note.isFavorite ? (
         <MdStar
-          className={main.favoriteIconClicked}
+          className={notesList.favoriteIconClicked}
           onClick={() => handleFavorite(note)}
         />
       ) : (
         <MdOutlineStarOutline
-          className={main.favoriteIcon}
+          className={notesList.favoriteIcon}
           onClick={() => handleFavorite(note)}
         />
       )}
-      <MdEdit />
+      <MdEdit onClick={() => router.push(`allNotes/note/${note._id}`)} />
       <MdDelete
-        className={main.deleteIcon}
+        className={notesList.deleteIcon}
         onClick={() => handleDelete(note)}
       />
     </div>
