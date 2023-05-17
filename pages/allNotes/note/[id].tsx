@@ -1,50 +1,74 @@
 import { NoteType } from "@/components/body/notesList/Notes";
-import { getNote } from "@/utils/apiCalls/apiCall";
+import { getAllNotes } from "@/utils/apiCalls/apiCall";
 import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import singleNote from "@/styles/allNotes/singleNote.module.scss";
 import NoteHeader from "@/components/body/AllElements/note/NoteHeader";
-
+import NoteFooter from "@/components/body/notesList/NoteFooter";
+import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 const SingleNote = () => {
   const router = useRouter();
-  const [note, setNote] = useState<NoteType>();
+  const [noteList, setNoteList] = useState<NoteType[]>([]);
+  const [noteIndex, setNoteIndex] = useState<number>();
   const [initialState, setInitialState] = useState(true);
-  const getData = async (id: string) => {
-    const resp = await getNote(id);
-    if (!resp) {
-      router.push("/allNotes");
+  const getData = async () => {
+    const resp: NoteType[] = await getAllNotes();
+    setNoteList(resp);
+    return resp;
+  };
+
+  const currentNote = useMemo(() => {
+    console.log(noteList);
+    if (router.isReady) {
+      !noteList.length && setInitialState(true);
+      let index = noteList.findIndex(
+        (item: NoteType) => item._id === router.query.id
+      );
+      setNoteIndex(index);
+      let note = noteList[index];
+
+      return note;
     }
-    setNote(resp);
+  }, [noteList, router.isReady, router.query.id]);
+
+  const handlePreviousPage = () => {
+    router.replace(`/allNotes/note/${noteList[noteIndex + 1]._id}`);
+  };
+  const handleNextPage = () => {
+    router.replace(`/allNotes/note/${noteList[noteIndex - 1]._id}`);
   };
   useEffect(() => {
     if (router.isReady && initialState) {
-      let newQuery = { ...router.query };
-      let { id } = newQuery;
-      const newId = Array.isArray(id) ? id[0] : id;
-      if (newId) {
-        getData(newId);
-
-        setInitialState(false);
-      }
+      getData();
+      setInitialState(false);
     }
-  }, [initialState, router, setInitialState]);
+  }, [initialState, setInitialState]);
   return (
     <div className={singleNote.main}>
-      {!initialState && note ? (
+      {noteIndex !== noteList.length - 1 && (
+        <div
+          className={singleNote.arrowContainer}
+          onClick={() => handlePreviousPage()}
+        >
+          <MdArrowBackIos className={singleNote.arrow} />
+        </div>
+      )}
+
+      {!initialState && currentNote ? (
         <div className={singleNote.container}>
           <div className={singleNote.body}>
-            <NoteHeader note={note} setInitialState={setInitialState} />
-            <p>{note.content}</p>
-            <p>{note.category}</p>
-          </div>
-          <div className={singleNote.footerButtons}>
-            <button>Go back</button>
-            <button>Edit</button>
-            <button>Delete</button>
+            <NoteHeader note={currentNote} setInitialState={setInitialState} />
+            <p>{currentNote.content}</p>
+            <NoteFooter note={currentNote} />
           </div>
         </div>
       ) : (
         <h1>loading...</h1>
+      )}
+      {noteIndex !== 0 && (
+        <div className={singleNote.arrowContainer} onClick={handleNextPage}>
+          <MdArrowForwardIos className={singleNote.arrow} />
+        </div>
       )}
     </div>
   );
