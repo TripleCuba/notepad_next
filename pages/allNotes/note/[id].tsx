@@ -18,27 +18,29 @@ const SingleNote = () => {
   };
 
   const currentNote = useMemo(() => {
-    console.log(noteList);
     if (router.isReady) {
-      !noteList.length && setInitialState(true);
       let index = noteList.findIndex(
         (item: NoteType) => item._id === router.query.id
       );
+
       setNoteIndex(index);
       let note = noteList[index];
-
       return note;
     }
   }, [noteList, router.isReady, router.query.id]);
 
-  const handlePreviousPage = () => {
-    router.replace(`/allNotes/note/${noteList[noteIndex + 1]._id}`);
+  const handlePageChange = (change: string) => {
+    let changeDirection = change === "previous" ? 1 : -1;
+    console.log(noteIndex);
+    noteIndex !== undefined
+      ? router.replace(
+          `/allNotes/note/${noteList[noteIndex + changeDirection]._id}`
+        )
+      : router.push("/allNotes");
   };
-  const handleNextPage = () => {
-    router.replace(`/allNotes/note/${noteList[noteIndex - 1]._id}`);
-  };
+
   useEffect(() => {
-    if (router.isReady && initialState) {
+    if (initialState) {
       getData();
       setInitialState(false);
     }
@@ -48,7 +50,7 @@ const SingleNote = () => {
       {noteIndex !== noteList.length - 1 && (
         <div
           className={singleNote.arrowContainer}
-          onClick={() => handlePreviousPage()}
+          onClick={() => handlePageChange("previous")}
         >
           <MdArrowBackIos className={singleNote.arrow} />
         </div>
@@ -66,7 +68,10 @@ const SingleNote = () => {
         <h1>loading...</h1>
       )}
       {noteIndex !== 0 && (
-        <div className={singleNote.arrowContainer} onClick={handleNextPage}>
+        <div
+          className={singleNote.arrowContainer}
+          onClick={() => handlePageChange("next")}
+        >
           <MdArrowForwardIos className={singleNote.arrow} />
         </div>
       )}
